@@ -1,0 +1,7 @@
+[Unit]
+Description=Schedule ez-ipupdate-nat.service to restart periodically
+[Timer]
+OnCalendar=minutely
+Unit=ez-ipupdate-nat.service
+[Install]
+WantedBy=timers.target
