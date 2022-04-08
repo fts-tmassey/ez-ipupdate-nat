@@ -44,9 +44,13 @@ Find %ZE_USER% and replace with your ZoneEdit username.  Find %ZE_PW% and replac
 
 ## Manually test script
 NOTE:  Manually running as root will create a temproray file owned by root, which will *not* be able to be overwritten by the service.  We will use a different cache filename to not create a conflict; but make sure you clean up the cache file when you're done.
-`/etc/ez-ipupdate/ez-ipupdate-nat.sh -v -c /etc/ez-ipupdate/hostname.ez-ipupdate.conf -t /tmp/hostname.ez-ipupdate.cachex`
+```
+/etc/ez-ipupdate/ez-ipupdate-nat.sh -v -c /etc/ez-ipupdate/hostname.ez-ipupdate.conf -t /tmp/hostname.ez-ipupdate.cachex
+```
 Now let's clean up the temp file:
-`rm /tmp/hostname.ez-ipupdate.cachex`
+```
+rm /tmp/hostname.ez-ipupdate.cachex
+```
 ## Create systemd service
 We will use systemd to run the script for us.  We will create a one-shot service:  this will only run when manully asked to.  We will then use a timer to schedule this to run periodically.
 ```
@@ -58,6 +62,10 @@ systemctl enable ez-ipupdate-nat.timer
 
 ## Check to see that it's running
 Check that the timer is starting periodically as it should:
-`journalctl -e -u ez-ipupdate-nat.timer`
+```
+journalctl -e -u ez-ipupdate-nat.timer
+```
 Check that the service is working once the timer has triggered it:
-`journalctl -e -u ez-ipupdate-nat.service`
+```
+journalctl -e -u ez-ipupdate-nat.service
+```
