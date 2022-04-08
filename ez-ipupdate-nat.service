@@ -1,0 +1,13 @@
+# Update this with proper configuration file name and paths
+[Unit]
+Description=ez-ipupdate-nat : Use ez-ipupdate to update FQDN with public IP
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/etc/ez-ipupdate/ez-ipupdate-nat.sh -c /etc/ez-ipupdate/hostname.ez-ipupdate.conf -t /tmp/hostname.ez-ipupdate.cache
+User=ez-ipupd
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
