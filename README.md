@@ -10,7 +10,9 @@ be possible to use this with any DNS that is supported by ez-ipudate, but I've o
 with ZoneEdit.
 
 # General Setup
-Please note that these instructions are based on my experience using this on an OCI-provided Ubuntu 20.04 image using systemd.  It assumes certain paths (mainly /etc/ez-ipupdate) and that an ez-ipupd user is created.  You very well may need to modify this process for your specific environment.
+Please note that these instructions are based on my experience using this on an OCI-provided Ubuntu 20.04 image using systemd.  It assumes certain paths (mainly /etc/ez-ipupdate) and that an ez-ipupd user is created when ez-ipupdate is installed, but without a group.  You very well may need to modify this process for your specific environment.
+
+This assumes that you have sudo access.  If you're running as root, remove the sudo's where they appear.
 
 ## Create DNS entries in Dynamic DNS (DDNS)
 You will need to create the dynamic records in your DDNS system yourself.
@@ -26,39 +28,50 @@ systemctl stop ez-ipupdate
 systemctl disable ez-ipupdate
 ```
 
+## Get ez-ipupdate-nat code
+Let's download the ez-ipupdate code:
+```
+mkdir ez-ipupdate-nat
+wget https://github.com/fts-tmassey/ez-ipupdate-nat/archive/refs/heads/main.zip
+unzip main.zip
+cd ez-ipupdate-nat
+```
+
 ## Put ez-ipupdate-nat.sh script and configuration in place
-Copy ez-ipupdate-nat.sh to /etc/ez-ipupdate/ez-ipupdate-nat.sh and set permissions.  Something like this:
+Put ez-ipupdate-nat.sh in place and set permissions.  Something like this:
 ```
-cp ez-ipupdate-nat.sh /etc/ez-ipupdate/
-chown root:root /etc/ez-ipupdate/ez-ipupdate-nat.sh
-chmod 755 /etc/ez-ipupdate/ez-ipupdate-nat.sh
+sudo mv ez-ipupdate-nat.sh /etc/ez-ipupdate/
+sudo chown root:root /etc/ez-ipupdate/ez-ipupdate-nat.sh
+sudo chmod 755 /etc/ez-ipupdate/ez-ipupdate-nat.sh
 ```
-Copy configuration script to /etc/ez-ipupdate, set permisisons and update with proper data.  Something like:
+Put configuration info in place, set permisisons and update with proper data.  Something like:
 ```
-groupadd ez-ipupd
-usermod -g ez-ipupd ez-ipupd
-chmod 640 /etc/ez-ipupdate/hostname.ez-ipupdate.conf
-chown root:ez-ipupd /etc/ez-ipupdate/hostname.ez-ipupdate.conf
-nano /etc/ez-ipupdate/hostname.ez-ipupdate.conf
+sudo groupadd ez-ipupd
+sudo usermod -g ez-ipupd ez-ipupd
+sudo chmod 640 /etc/ez-ipupdate/hostname.ez-ipupdate.conf
+sudo chown root:ez-ipupd /etc/ez-ipupdate/hostname.ez-ipupdate.conf
+sudo nano /etc/ez-ipupdate/hostname.ez-ipupdate.conf
 ```
 Find %ZE_USER% and replace with your ZoneEdit username.  Find %ZE_PW% and replace with your ZoneEdit password.  Find %FQDN% and replace with the FQDN of the DYN record you created.
 
+Not using ZoneEdit?  You will need to make more extensive changes to update the configuration for your Dynamic DNS host.  You may want to look for a sample configuration for your provider and compare the two to see the proper changes.
+
 ## Manually test script
-NOTE:  Manually running as root will create a temproray file owned by root, which will *not* be able to be overwritten by the service.  We will use a different cache filename to not create a conflict; but make sure you clean up the cache file when you're done.
+NOTE:  Manually running as root will create a temproray file owned by that user, which will *not* be able to be overwritten by the service.  We will use a different cache filename to not create a conflict; but make sure you clean up the cache file when you're done.
 ```
-/etc/ez-ipupdate/ez-ipupdate-nat.sh -v -c /etc/ez-ipupdate/hostname.ez-ipupdate.conf -t /tmp/hostname.ez-ipupdate.cachex
+sudo /etc/ez-ipupdate/ez-ipupdate-nat.sh -v -c /etc/ez-ipupdate/hostname.ez-ipupdate.conf -t /tmp/hostname.ez-ipupdate.cachex
 ```
 Now let's clean up the temp file:
 ```
-rm /tmp/hostname.ez-ipupdate.cachex
+sudo rm /tmp/hostname.ez-ipupdate.cachex
 ```
 ## Create systemd service
 We will use systemd to run the script for us.  We will create a one-shot service:  this will only run when manully asked to.  We will then use a timer to schedule this to run periodically.
 ```
-cp ez-ipupdate-nat.service /etc/systemd/system
-cp ez-ipupdate-nat.timer /etc/systemd/system
-systemctl start ez-ipupdate-nat.timer
-systemctl enable ez-ipupdate-nat.timer
+sudo cp ez-ipupdate-nat.service /etc/systemd/system
+sudo cp ez-ipupdate-nat.timer /etc/systemd/system
+sudo systemctl start ez-ipupdate-nat.timer
+sudo systemctl enable ez-ipupdate-nat.timer
 ```
 
 ## Check to see that it's running
