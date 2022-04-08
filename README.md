@@ -10,6 +10,7 @@ be possible to use this with any DNS that is supported by ez-ipudate, but I've o
 with ZoneEdit.
 
 # General Setup
+Please note that these instructions are based on my experience using this on an OCI-provided Ubuntu 20.04 image using systemd.  It assumes certain paths (mainly /etc/ez-ipupdate) and that an ez-ipupd user is created.  You very well may need to modify this process for your specific environment.
 
 ## Create DNS entries in Dynamic DNS (DDNS)
 You will need to create the dynamic records in your DDNS system yourself.
@@ -17,7 +18,7 @@ You will need to create the dynamic records in your DDNS system yourself.
 ## Install ez-ipupdate on host
 You will need to install ez-ipudate on whatever host you're using.  For Linux, that's likely going to be a simple "apt-get instal ez-ipupdate" or "dnf install ez-ipupdate" or such.
 
-If you're asked what type of configuration you want to use, feel free to use something like 'install later'.  We won't be using any package-supplied configuration, because they all assume that the public IP will be assigned directly to the host, and in this case it won't, so they won't work.
+If you're asked what type of configuration you want to use, feel free to use something like 'configure later'.  We won't be using any package-supplied configuration, because they all assume that the public IP will be assigned directly to the host, and in this case it won't, so they won't work.
 
 In fact, once the package is installed, you may want to "ls /etc/ez-ipupdate" and make sure there's nothing there; if a configuration file is there, you may want to remove it.  In addition, it would likely also be best to disable the client from running automatically:  we will launch it manually from the script.
 ```
