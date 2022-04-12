@@ -25,7 +25,7 @@ while getopts "c:t:hv" OPT; do
          echo "${0}: -c <config file> [-t <cache file>] [-h] [-v]"
          echo "  -c <config file> : Path to ez-ipupdate config file"
          echo "  -t <cache file>  : Path to IP cache file"
-         echo "                   : Default: ${DEFAULT_CACHE_FILE}"
+         echo "                      Default: ${DEFAULT_CACHE_FILE}"
          echo "  -h               : Show this help information"
          echo "  -v               : Show verbose information"
          exit;;
