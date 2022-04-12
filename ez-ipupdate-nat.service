@@ -1,4 +1,4 @@
-# Update this with proper configuration file name and paths
+# See https://github.com/fts-tmassey/ez-ipupdate-nat for details
 [Unit]
 Description=ez-ipupdate-nat : Use ez-ipupdate to update FQDN with public IP
 After=network.target
