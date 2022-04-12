@@ -85,11 +85,12 @@ sudo systemctl enable ez-ipupdate-nat.timer
 ```
 
 ## Check to see that it's running
-Check that the timer is starting periodically as it should:
+Check that the timer is started:
 ```
 journalctl -e -u ez-ipupdate-nat.timer
 ```
-Check that the service is working once the timer has triggered it:
+You will see a message that the service is started to restart periodically, and there will be no further logging here.  Let's now make sure that the actual service is indeed being triggered periodically:
 ```
 journalctl -e -u ez-ipupdate-nat.service
 ```
+Once the service is triggered, you will see three lines:  Starting ez-ipupdate-nat, ez-ipupdate-nat.service: Succeeded, and Finished ez-ipupdate-nat.  At that point, your IP is up to date!
