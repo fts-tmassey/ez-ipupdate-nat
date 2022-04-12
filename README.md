@@ -99,7 +99,8 @@ Once the service is triggered, you will see three lines:  Starting ez-ipupdate-n
 The script will accept the following parameters:
 ```
   -c <config file> : Path to ez-ipupdate config file
-  -t <cache file>  : Path to IP cache file (defaults to /tmp/ez-ipupdate-nat.cache)
+  -t <cache file>  : Path to IP cache file
+                      Default:  /tmp/hostname.ez-ipupdate-nat.cache
   -h               : Show this help information
   -v               : Show verbose information
 ```
