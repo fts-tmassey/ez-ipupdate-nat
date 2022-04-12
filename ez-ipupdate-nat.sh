@@ -71,7 +71,7 @@ fi
 # See if IP needs to be updated
 CACHED_IP=$(< "${CACHE_FILE}" )
 vecho "Cached IP address:  ${CACHED_IP}"
-if [[ "${CACHED_IP}" ) != "${PUBLIC_IP}" ]]; then
+if [[ "${CACHED_IP}" != "${PUBLIC_IP}" ]]; then
     vecho "Cached IP does not match public IP: update needed."
     # The following command runs the ez-ipupdate command and captures its output
     OUTPUT=$(ez-ipupdate -a "${PUBLIC_IP}" -c "${CONF_FILE}" 2>&1)
