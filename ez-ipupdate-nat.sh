@@ -12,6 +12,7 @@ vecho() {
 }
 
 # Check and process parameters
+DEFAULT_CACHE_FILE=${CACHE_FILE}
 while getopts "c:t:hv" OPT; do
    case ${OPT} in
       "c") # config file path
@@ -23,7 +24,8 @@ while getopts "c:t:hv" OPT; do
       "h") # display usage
          echo "${0}: -c <config file> [-t <cache file>] [-h] [-v]"
          echo "  -c <config file> : Path to ez-ipupdate config file"
-         echo "  -t <cache file>  : Path to IP cache file (defaults to ${CACHE_FILE})"
+         echo "  -t <cache file>  : Path to IP cache file"
+         echo "                   : Default: ${DEFAULT_CACHE_FILE}"
          echo "  -h               : Show this help information"
          echo "  -v               : Show verbose information"
          exit;;
