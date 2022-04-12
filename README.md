@@ -94,3 +94,12 @@ You will see a message that the service is started to restart periodically, and 
 journalctl -e -u ez-ipupdate-nat.service
 ```
 Once the service is triggered, you will see three lines:  Starting ez-ipupdate-nat, ez-ipupdate-nat.service: Succeeded, and Finished ez-ipupdate-nat.  At that point, your IP is up to date!
+
+# Script Parameters
+The script will accept the following parameters:
+```
+  -c <config file> : Path to ez-ipupdate config file
+  -t <cache file>  : Path to IP cache file (defaults to /tmp/ez-ipupdate-nat.cache)
+  -h               : Show this help information
+  -v               : Show verbose information
+```
