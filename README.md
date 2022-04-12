@@ -67,9 +67,19 @@ sudo rm /tmp/hostname.ez-ipupdate.cachex
 ```
 ## Create systemd service
 We will use systemd to run the script for us.  We will create a one-shot service:  this will only run when manully asked to.  We will then use a timer to schedule this to run periodically.
+
+First, let's put the service files in place:
 ```
 sudo cp ez-ipupdate-nat.service /etc/systemd/system
 sudo cp ez-ipupdate-nat.timer /etc/systemd/system
+sudo chmod 644 /etc/systemd/system/ez-ipupdate-nat.service
+sudo chmod 644 /etc/systemd/system/ez-ipupdate-nat.timer
+sudo chown root:root ez-ipupdate-nat.service
+sudo chown root:root ez-ipupdate-nat.timer
+```
+Now we have to tell systemd about the new service, and then we can start and enable it:
+```
+sudo systemctl daemon-reload
 sudo systemctl start ez-ipupdate-nat.timer
 sudo systemctl enable ez-ipupdate-nat.timer
 ```
