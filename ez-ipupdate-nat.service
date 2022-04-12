@@ -5,7 +5,7 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/etc/ez-ipupdate/ez-ipupdate-nat.sh -c /etc/ez-ipupdate/hostname.ez-ipupdate.conf -t /tmp/hostname.ez-ipupdate.cache
+ExecStart=/etc/ez-ipupdate/ez-ipupdate-nat.sh -c /etc/ez-ipupdate/hostname.ez-ipupdate.conf
 User=ez-ipupd
 NoNewPrivileges=true
 
