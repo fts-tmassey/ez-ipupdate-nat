@@ -1,3 +1,4 @@
+# See https://github.com/fts-tmassey/ez-ipupdate-nat for details
 [Unit]
 Description=Schedule ez-ipupdate-nat.service to restart periodically
 [Timer]
