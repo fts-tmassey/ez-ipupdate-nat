@@ -3,7 +3,7 @@
 # (C) 2022 Timothy J. Massey
 # License:  GPL 2.0 or newer
 
-CACHE_FILE="/tmp/ez-ipupdate-nat.cache"
+CACHE_FILE="/tmp/hostname.ez-ipupdate-nat.cache"
 PUBLIC_IP_URL="icanhazip.com"
 
 # Echo only if user specifies Verbose output
