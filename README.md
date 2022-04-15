@@ -43,6 +43,7 @@ Put ez-ipupdate-nat.sh in place and set permissions.  Something like this:
 sudo mv ez-ipupdate-nat.sh /etc/ez-ipupdate/
 sudo chown root:root /etc/ez-ipupdate/ez-ipupdate-nat.sh
 sudo chmod 755 /etc/ez-ipupdate/ez-ipupdate-nat.sh
+sudo restorecon -v /etc/ez-ipupdate/ez-ipupdate-nat.sh
 ```
 Put configuration info in place, set permisisons and update with proper data.  Something like:
 ```
@@ -50,6 +51,7 @@ sudo groupadd ez-ipupd
 sudo usermod -g ez-ipupd ez-ipupd
 sudo chmod 640 /etc/ez-ipupdate/hostname.ez-ipupdate.conf
 sudo chown root:ez-ipupd /etc/ez-ipupdate/hostname.ez-ipupdate.conf
+sudo restorecon -v /etc/ez-ipupdate/hostname.ez-ipupdate.conf
 sudo nano /etc/ez-ipupdate/hostname.ez-ipupdate.conf
 ```
 Find %ZE_USER% and replace with your ZoneEdit username.  Find %ZE_PW% and replace with your ZoneEdit password.  Find %FQDN% and replace with the FQDN of the DYN record you created.
@@ -76,6 +78,8 @@ sudo chmod 644 /etc/systemd/system/ez-ipupdate-nat.service
 sudo chmod 644 /etc/systemd/system/ez-ipupdate-nat.timer
 sudo chown root:root ez-ipupdate-nat.service
 sudo chown root:root ez-ipupdate-nat.timer
+sudo restorecon -v /etc/systemd/system/ez-ipupdate-nat.service
+sudo restorecon -v /etc/systemd/system/ez-ipupdate-nat.tmer
 ```
 Now we have to tell systemd about the new service, and then we can start and enable it:
 ```
